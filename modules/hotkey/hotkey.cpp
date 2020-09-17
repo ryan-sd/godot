@@ -20,13 +20,15 @@ void Hotkey::test_hotkey() {
 	int length = input_map.size();
 
 	while (GetMessage(&msg, hWnd, 0, 0) != 0) {
+		String last_input = "";
 		if (msg.message == WM_HOTKEY) {
 			for (int x = 0; x < length; x++) {
 				input_map_entry entry = input_map.get(x);
 				int id = entry.hotkey_id;
 				if (id == msg.wParam) {
 					Input::get_singleton()->action_press(entry.input_name, 1.0f);
-					Input::get_singleton()->action_release(entry.input_name);
+					Sleep(5);
+					last_input = entry.input_name;
 				}
 			}
 		}
